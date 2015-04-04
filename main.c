@@ -18,45 +18,20 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include "datatypes.h"
 #include "kbhit.h"
 #include "serial.h"
 #include "checksum.h"
 #include "vbus.h"
 
+#ifdef __SQLITE__
+	#include "sqlite.h"
+#endif
+
 char serial_buffer[256];
 
-#pragma pack(1)
-union {
-	struct {
-		short TempSensor1;
-		short TempSensor2;
-		short TempSensor3;
-		short TempSensor4;
-		unsigned char PumpSpeed1;
-		unsigned char PumpSpeed2;
-		unsigned char RelayMask;
-		unsigned char ErrorMask;
-		unsigned short SystemTime;
-		unsigned char Scheme;
-		unsigned char OptionCollectorMax:1;
-		unsigned char OptionCollectorMin:1;
-		unsigned char OptionCollectorFrost:1;
-		unsigned char OptionTubeCollector:1;
-		unsigned char OptionRecooling:1;
-		unsigned char OptionHQM:1;
-		unsigned char rfu:2;
-		unsigned short OperatingHoursRelay1;
-		unsigned short OperatingHoursRelay2;
-		unsigned short HeatQuantityWH;
-		unsigned short HeatQuantityKWH;
-		unsigned short HeatQuantityMWH;
-		unsigned short Version;
-	} bsPlusPkt;
-	unsigned char asBytes[28];
-} BS_Plus_Data_Packet;
-
-
 int main(int argc, char *argv[]) {
+	Data_Packet packet;
 
 	PVBUS_V1_CMD pPacket = (PVBUS_V1_CMD)&serial_buffer[0];
 	unsigned char i = 0, j, k;
@@ -64,16 +39,54 @@ int main(int argc, char *argv[]) {
 	int crcOK = 0;
 	int loopforever = 0;
 	int packet_displayed = 0;
+	unsigned long delay = 0;
 
-	if (!serial_open_port(argv[1])) {
+	// last option is the serial port
+	if (argc < 2 || !serial_open_port(argv[argc - 1])) {
 		printf ("Errno(%d) opening %s: %s\n", errno, argv[1], strerror (errno));
 		return 2;
 	}
 
 	if (argc > 2) {
-		loopforever = 1;
-	}
+		int idx;
+		for (idx = 1; idx < argc; ++idx) {
+			char *option = argv[idx];
 
+			if (strcmp("-f", option)==0 || strcmp("--forever", option)==0) {
+				loopforever = true;
+			}
+
+			if (strcmp("-d", option)==0 || strcmp("--delay", option)==0) {
+				if (argc <= idx + 2) {
+					printf("Missing value for delay option\n");
+					return 4;
+				}
+
+				// Use next option as delay value
+				idx++;
+				delay = strtoul(argv[idx], NULL, 10);
+
+				#ifdef __WXMSW__
+					delay *= 1000;
+				#endif
+			}
+
+			#ifdef __SQLITE__
+				if (strcmp("--db", option)==0) {
+					if (argc <= idx + 2) {
+						printf("Missing value for sqlite db path\n");
+						return 5;
+					}
+
+					// Use next option as delay value
+					idx++;
+					if (!sqlite_open(argv[idx])) {
+						return 6;
+					}
+				}
+			#endif
+		}
+	}
 	//printf("Collecting data\n");
 
 	if (!serial_set_baud_rate(9600)) {
@@ -143,7 +156,7 @@ int main(int argc, char *argv[]) {
 					}
 					VBus_InjectSeptett((void *)&(pPacket->frame[j]), 0, 4);
 					for (k = 0; k < 4; k++) {
-						BS_Plus_Data_Packet.asBytes[(j * 4) + k] = pPacket->frame[j].bytes[k];
+						packet.asBytes[(j * 4) + k] = pPacket->frame[j].bytes[k];
 					}
 				}
 
@@ -153,50 +166,63 @@ int main(int argc, char *argv[]) {
 
 				//printf("%d\n", sizeof(BS_Plus_Data_Packet));
 
-				printf("System time:%02d:%02d"
-					", Sensor1 temp:%.1fC"
-					", Sensor2 temp:%.1fC"
-					", Sensor3 temp:%.1fC"
-					", Sensor4 temp:%.1fC"
-					", Pump speed1:%d%%"
-					", Pump speed2:%d%%"
-					//", RelayMask:%d"
-					//", ErrorMask:%d"
-					//", Scheme:%d, %d, %d, %d, %d, %d, %d"
-					", Hours1:%d, Hours2:%d"
-					//", %dWH, %dkWH, %dMWH"
-					//", Version:%.2f"
-					"\n",
-					BS_Plus_Data_Packet.bsPlusPkt.SystemTime / 60,
-					BS_Plus_Data_Packet.bsPlusPkt.SystemTime % 60,
-					BS_Plus_Data_Packet.bsPlusPkt.TempSensor1 * 0.1,
-					BS_Plus_Data_Packet.bsPlusPkt.TempSensor2 * 0.1,
-					BS_Plus_Data_Packet.bsPlusPkt.TempSensor3 * 0.1,
-					BS_Plus_Data_Packet.bsPlusPkt.TempSensor4 * 0.1,
-					BS_Plus_Data_Packet.bsPlusPkt.PumpSpeed1,
-					BS_Plus_Data_Packet.bsPlusPkt.PumpSpeed2,
-					//BS_Plus_Data_Packet.bsPlusPkt.RelayMask,
-					//BS_Plus_Data_Packet.bsPlusPkt.ErrorMask,
-					//BS_Plus_Data_Packet.bsPlusPkt.Scheme,
-					//BS_Plus_Data_Packet.bsPlusPkt.OptionCollectorMax,
-					//BS_Plus_Data_Packet.bsPlusPkt.OptionCollectorMin,
-					//BS_Plus_Data_Packet.bsPlusPkt.OptionCollectorFrost,
-					//BS_Plus_Data_Packet.bsPlusPkt.OptionTubeCollector,
-					//BS_Plus_Data_Packet.bsPlusPkt.OptionRecooling,
-					//BS_Plus_Data_Packet.bsPlusPkt.OptionHQM,
-					BS_Plus_Data_Packet.bsPlusPkt.OperatingHoursRelay1,
-					BS_Plus_Data_Packet.bsPlusPkt.OperatingHoursRelay2
-					//BS_Plus_Data_Packet.bsPlusPkt.HeatQuantityWH,
-					//BS_Plus_Data_Packet.bsPlusPkt.HeatQuantityKWH,
-					//BS_Plus_Data_Packet.bsPlusPkt.HeatQuantityMWH
-					//BS_Plus_Data_Packet.bsPlusPkt.Version * 0.01
-					);
+				#if __SQLITE__
+					sqlite_insert_data(&packet);
+				#else
+					printf("System time:%02d:%02d"
+						", Sensor1 temp:%.1fC"
+						", Sensor2 temp:%.1fC"
+						", Sensor3 temp:%.1fC"
+						", Sensor4 temp:%.1fC"
+						", Pump speed1:%d%%"
+						", Pump speed2:%d%%"
+						//", RelayMask:%d"
+						//", ErrorMask:%d"
+						//", Scheme:%d, %d, %d, %d, %d, %d, %d"
+						", Hours1:%d, Hours2:%d"
+						//", %dWH, %dkWH, %dMWH"
+						//", Version:%.2f"
+						"\n",
+						packet.bsPlusPkt.SystemTime / 60,
+						packet.bsPlusPkt.SystemTime % 60,
+						packet.bsPlusPkt.TempSensor1 * 0.1,
+						packet.bsPlusPkt.TempSensor2 * 0.1,
+						packet.bsPlusPkt.TempSensor3 * 0.1,
+						packet.bsPlusPkt.TempSensor4 * 0.1,
+						packet.bsPlusPkt.PumpSpeed1,
+						packet.bsPlusPkt.PumpSpeed2,
+						//packet.bsPlusPkt.RelayMask,
+						//packet.bsPlusPkt.ErrorMask,
+						//packet.bsPlusPkt.Scheme,
+						//packet.bsPlusPkt.OptionCollectorMax,
+						//packet.bsPlusPkt.OptionCollectorMin,
+						//packet.bsPlusPkt.OptionCollectorFrost,
+						//packet.bsPlusPkt.OptionTubeCollector,
+						//packet.bsPlusPkt.OptionRecooling,
+						//packet.bsPlusPkt.OptionHQM,
+						packet.bsPlusPkt.OperatingHoursRelay1,
+						packet.bsPlusPkt.OperatingHoursRelay2
+						//packet.bsPlusPkt.HeatQuantityWH,
+						//packet.bsPlusPkt.HeatQuantityKWH,
+						//packet.bsPlusPkt.HeatQuantityMWH
+						//packet.bsPlusPkt.Version * 0.01
+						);
+				#endif
 				packet_displayed++;
+
+				fflush(stdout);
+				sleep(delay);
+
 				continue;
 			}
 		}
 
 	} while (loopforever > 0 || packet_displayed == 0);
 	serial_close_port();
+
+	#if __SQLITE__
+	sqlite_close();
+	#endif
+
 	return 0;
 }

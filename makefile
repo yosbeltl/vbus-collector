@@ -1,7 +1,7 @@
 CC=gcc
-CFLAGS=-c -Wall
-LDFLAGS=
-SOURCES=kbhit.c checksum.c serial.c vbus.c main.c
+CFLAGS=-D__SQLITE__ -O3 -c -Wall
+LDFLAGS=-lsqlite3
+SOURCES=kbhit.c checksum.c serial.c vbus.c sqlite.c main.c
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=vbus-collector
 
@@ -16,4 +16,3 @@ $(EXECUTABLE): $(OBJECTS)
 clean:
 	rm *.o
 	rm $(EXECUTABLE)
-
