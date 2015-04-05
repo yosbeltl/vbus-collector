@@ -40,6 +40,7 @@ int main(int argc, char *argv[]) {
 	int loopforever = 0;
 	int packet_displayed = 0;
 	unsigned long delay = 0;
+	bool withSql = false;
 
 	// last option is the serial port
 	if (argc < 2 || !serial_open_port(argv[argc - 1])) {
@@ -83,6 +84,8 @@ int main(int argc, char *argv[]) {
 					if (!sqlite_open(argv[idx])) {
 						return 6;
 					}
+
+					withSql = true;
 				}
 			#endif
 		}
@@ -167,8 +170,11 @@ int main(int argc, char *argv[]) {
 				//printf("%d\n", sizeof(BS_Plus_Data_Packet));
 
 				#if __SQLITE__
-					sqlite_insert_data(&packet);
-				#else
+					if (withSql) {
+						sqlite_insert_data(&packet);
+					}
+					else
+				#endif
 					printf("System time:%02d:%02d"
 						", Sensor1 temp:%.1fC"
 						", Sensor2 temp:%.1fC"
@@ -207,7 +213,6 @@ int main(int argc, char *argv[]) {
 						//packet.bsPlusPkt.HeatQuantityMWH
 						//packet.bsPlusPkt.Version * 0.01
 						);
-				#endif
 				packet_displayed++;
 
 				fflush(stdout);
