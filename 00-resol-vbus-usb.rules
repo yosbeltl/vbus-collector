@@ -1,0 +1,2 @@
+# RESOL-VBusUSB-Adapter
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1fef", ATTRS{idProduct}=="2018", SYMLINK+="tty_resol"
