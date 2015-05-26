@@ -4,6 +4,7 @@
 //
 // (c) Hewell Technology Ltd. 2014
 //
+// Tobias Tangemann 2015
 //****************************************************************************
 
 
@@ -41,6 +42,10 @@ int main(int argc, char *argv[]) {
 	int packet_displayed = 0;
 	unsigned long delay = 0;
 	bool withSql = false;
+	bool print_result = true;
+
+	start:
+	headerSync = 0; packet_displayed = 0;
 
 	// last option is the serial port
 	if (argc < 2 || !serial_open_port(argv[argc - 1])) {
@@ -88,6 +93,10 @@ int main(int argc, char *argv[]) {
 					withSql = true;
 				}
 			#endif
+
+			if (strcmp("--no-print", option) == 0) {
+				print_result = false;
+			}
 		}
 	}
 	//printf("Collecting data\n");
@@ -173,8 +182,9 @@ int main(int argc, char *argv[]) {
 					if (withSql) {
 						sqlite_insert_data(&packet);
 					}
-					else
 				#endif
+				
+				if (print_result) {
 					printf("System time:%02d:%02d"
 						", Sensor1 temp:%.1fC"
 						", Sensor2 temp:%.1fC"
@@ -212,22 +222,27 @@ int main(int argc, char *argv[]) {
 						//packet.bsPlusPkt.HeatQuantityKWH,
 						//packet.bsPlusPkt.HeatQuantityMWH
 						//packet.bsPlusPkt.Version * 0.01
-						);
+					);
+				}
 				packet_displayed++;
 
 				fflush(stdout);
-				sleep(delay);
 
 				continue;
 			}
 		}
 
-	} while (loopforever > 0 || packet_displayed == 0);
+	} while (loopforever == true || packet_displayed == 0);
 	serial_close_port();
 
 	#if __SQLITE__
 	sqlite_close();
 	#endif
+
+	if (delay > 0) {
+		sleep(delay);
+		goto start;
+	}
 
 	return 0;
 }
