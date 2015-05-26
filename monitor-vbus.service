@@ -1,0 +1,13 @@
+[Unit]
+Description=Monitor resol vbus temperatures
+BindsTo=dev-tty_resol.device
+After=dev-tty_resol.device
+
+[Service]
+Nice=1
+ExecStart=/opt/vbus-collector/vbus-collector --no-print --delay 60 --db /opt/vbus-collector/data.db /dev/tty_resol
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
