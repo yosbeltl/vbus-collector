@@ -29,7 +29,7 @@ OBJDIR = obj
 all: createdirs $(SOURCES) $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
 
 $(OBJDIR)/%.o: %.c
 	$(CC) $(CFLAGS) $< -o $@
