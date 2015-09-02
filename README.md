@@ -6,21 +6,18 @@ Data visualization is done by [vbus-server](https://github.com/tripplet/vbus-ser
 ## HowTo
 The RaspberryPi or other linux machine should be running and connected to the internet, ssh sould be available.
 
-* Get root powers
-```shell
-$ sudo -s
-```
+* Get root via `sudo -s`, `su` or other ways :smile:
 
 Get the necessary packages (raspbian)
 ```shell
 $ apt-get update
-$ apt-get install sudo git build-essential cmake libsqlite3-dev
+$ apt-get install git build-essential cmake libsqlite3-dev
 ```
 
 Get the necessary packages (archlinux-arm)
 ```shell
 $ pacman -Syu
-$ pacman -S sudo git base-devel cmake libsqlite3-dev sqlite
+$ pacman -S git base-devel cmake libsqlite3-dev sqlite
 ```
 
 Download the source code
