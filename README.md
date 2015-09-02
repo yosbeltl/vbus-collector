@@ -63,7 +63,7 @@ $ /opt/vbus/collector/vbus-collector --delay 1 /dev/tty_resol
   System time:13:19, Sensor1 temp:20.7C, Sensor2 temp:21.0C, Sensor3 temp:22.9C, Sensor4 temp:24.0C, Pump speed1:0%, Pump speed2:0%, Hours1:2302, Hours2:2425
 ```
 
-Start the minitor-vbus service
+Start the monitor-vbus service
 ```shell
 $ systemctl start monitor-vbus
 ```
