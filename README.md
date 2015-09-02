@@ -1,6 +1,8 @@
 # vbus-collector
 [![Build Status](https://travis-ci.org/tripplet/vbus-collector.svg?branch=master)](https://travis-ci.org/tripplet/vbus-collector)
 
+Data visualization is done by [vbus-server](https://github.com/tripplet/vbus-server)
+
 ## HowTo
 The RaspberryPi or other linux machine should be running and connected to the internet, ssh sould be available.
 
