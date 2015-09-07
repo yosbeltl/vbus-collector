@@ -87,7 +87,7 @@ $ sqlite3 /opt/vbus/collector/data.db "SELECT * FROM data ORDER BY id DESC LIMIT
   174834|2015-09-02 11:31:03|10:20|18.9|20.9|22.6|22.9|0|0|2302|2425
 ```
 > Date/Time values in the sqlite database are stored in UTC.
-> To get the correct local time ensure that the timezon is set properly and use
+> To get the correct local time ensure that the timezone on the system is set properly and use:
 > ```shell
 > $ sqlite3 /opt/vbus/collector/data.db "SELECT datetime(time, 'localtime'),* FROM data;"
 > ```
