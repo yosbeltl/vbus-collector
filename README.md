@@ -11,13 +11,13 @@ The RaspberryPi or other linux machine should be running and connected to the in
 Get the necessary packages (raspbian)
 ```shell
 $ apt-get update
-$ apt-get install git build-essential cmake libsqlite3-dev
+$ apt-get install git build-essential cmake libsqlite3-dev sqlite
 ```
 
 Get the necessary packages (archlinux-arm)
 ```shell
 $ pacman -Syu
-$ pacman -S git base-devel cmake libsqlite3-dev sqlite
+$ pacman -S git base-devel cmake libsqlite3-dev sqlite3
 ```
 
 Download the source code
@@ -77,3 +77,17 @@ $ systemctl status monitor-vbus
      CGroup: /system.slice/monitor-vbus.service
              └─12422 /opt/vbus/collector/vbus-collector --no-print --delay 60 --db /opt/vbus/collector/data.db /dev/tty_resol
 ```
+
+Check that data is beeing written to the sqlite database
+```shell
+$ sqlite3 /opt/vbus/collector/data.db "SELECT * FROM data ORDER BY id DESC LIMIT 4;"
+  174837|2015-09-02 11:28:10|10:24|18.8|20.9|22.6|22.9|0|0|2302|2425
+  174836|2015-09-02 11:29:07|10:22|18.9|20.9|22.7|22.9|0|0|2302|2425
+  174835|2015-09-02 11:30:05|10:21|18.8|20.9|22.6|22.9|0|0|2302|2425
+  174834|2015-09-02 11:31:03|10:20|18.9|20.9|22.6|22.9|0|0|2302|2425
+```
+> Date/Time values in the sqlite database are stored in UTC.
+> To get the correct local time ensure that the timezon is set properly and use
+> ```shell
+> $ sqlite3 /opt/vbus/collector/data.db "SELECT datetime(time, 'localtime'),* FROM data;"
+> ```
