@@ -36,7 +36,7 @@ $ make
 
 ### Setting up config files
 
-Now the udev rules and systemd service files need to be soft linked to the right locations
+Now the udev rule and systemd service file need to be soft linked to the right locations
 ```shell
 $ ln -s /opt/vbus/collector/00-resol-vbus-usb.rules /etc/udev/rules.d/
 $ ln -s /opt/vbus/collector/monitor-vbus.service /etc/systemd/system/
