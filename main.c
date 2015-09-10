@@ -90,6 +90,8 @@ int main(int argc, char *argv[]) {
 						return 6;
 					}
 
+					sqlite_create_table();
+
 					withSql = true;
 				}
 			#endif
