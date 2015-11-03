@@ -1,4 +1,3 @@
-
 //****************************************************************************
 // main.c
 //
@@ -18,6 +17,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <time.h>
 
 #include "datatypes.h"
 #include "kbhit.h"
@@ -185,7 +185,7 @@ int main(int argc, char *argv[]) {
 						sqlite_insert_data(&packet);
 					}
 				#endif
-				
+
 				if (print_result) {
 					printf("System time:%02d:%02d"
 						", Sensor1 temp:%.1fC"
@@ -242,7 +242,24 @@ int main(int argc, char *argv[]) {
 	#endif
 
 	if (delay > 0) {
-		sleep(delay);
+		if (delay == 60) {
+			time_t rawtime;
+		  struct tm * timeinfo;
+
+		  time (&rawtime);
+		  timeinfo = localtime (&rawtime);
+
+		  if (timeinfo->tm_sec < 59) {
+		  	sleep(delay - timeinfo->tm_sec);
+		  }
+		  else {
+		  	sleep(delay);
+		  }
+		}
+		else {
+			sleep(delay);
+		}
+
 		goto start;
 	}
 
