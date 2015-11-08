@@ -42,6 +42,14 @@ $ ln -s /opt/vbus/collector/00-resol-vbus-usb.rules /etc/udev/rules.d/
 $ ln -s /opt/vbus/collector/monitor-vbus.service /etc/systemd/system/
 ```
 
+Get the connected usb devices, identify the vbus adapter and make sure the
+_00-resol-vbus-usb.rules_ file contains uses the correct vid and pid
+```
+$ lsusb
+  Bus 001 Device 011: ID 1fef:2018
+  ...
+```
+
 Now reload the udev rules
 ```shell
 $ udevadm control --reload-rules
