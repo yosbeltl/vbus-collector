@@ -35,7 +35,10 @@ int ttyraw(int fd)
     */
     struct termios newtermios;
     if(tcgetattr(fd, &oldtermios) < 0)
+    {
         return(-1);
+    }
+
     newtermios = oldtermios;
 
     newtermios.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
@@ -75,7 +78,10 @@ int ttyraw(int fd)
 
     /* You tell me why TCSAFLUSH. */
     if(tcsetattr(fd, TCSAFLUSH, &newtermios) < 0)
+    {
         return(-1);
+    }
+
     return(0);
 }
 
@@ -94,11 +100,13 @@ void sigcatch(int sig)
     exit(0);
 }
 
-int caughtSigQuit(void) {
-	return ((int)signal(SIGQUIT, sigcatch) < 0);
+int caughtSigQuit(void)
+{
+	return ((size_t)signal(SIGQUIT, sigcatch) < 0);
 }
 
-int catchSig(int sig) {
-	return ((int)signal(sig, sigcatch) < 0);
+int catchSig(int sig)
+{
+	return ((size_t)signal(sig, sigcatch) < 0);
 }
 

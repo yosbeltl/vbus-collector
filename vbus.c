@@ -6,26 +6,43 @@
 
 #include "vbus.h"
 
-void VBus_ExtractSeptett(unsigned char *Buffer, int Offset, int Length) {
-	unsigned char Septett;
-	int i;
-	Septett = 0;
-	for (i = 0; i < Length; i++) {
-		if (Buffer [Offset + i] & 0x80) {
-			Buffer [Offset + i] &= 0x7F;
-			Septett |= (1 << i);
-		}
-	}
-	Buffer [Offset + Length] = Septett;
+unsigned char vbus_calc_crc(const unsigned char *buffer, int offset, int length)
+{
+    unsigned char crc = 0x7F;
+
+    for (int idx = 0; idx < length; idx++)
+    {
+        crc = (crc - buffer [offset + idx]) & 0x7F;
+    }
+
+    return crc;
 }
 
-void VBus_InjectSeptett(unsigned char *Buffer, int Offset, int Length) {
-	unsigned char Septett;
-	int i;
-	Septett = Buffer [Offset + Length];
-	for (i = 0; i < Length; i++) {
-		if (Septett & (1 << i)) {
-			Buffer [Offset + i] |= 0x80;
-		}
-	}
+void vbus_extract_septett(unsigned char *buffer, int offset, int length)
+{
+    unsigned char septett = 0;
+
+    for (int idx = 0; idx < length; idx++)
+    {
+        if (buffer[offset + idx] & 0x80)
+        {
+            buffer[offset + idx] &= 0x7F;
+            septett |= (1 << idx);
+        }
+    }
+
+    buffer [offset + length] = septett;
+}
+
+void vbus_inject_septett(unsigned char *buffer, int offset, int length)
+{
+    unsigned char septett = buffer[offset + length];
+
+    for (int idx = 0; idx < length; idx++)
+    {
+        if (septett & (1 << idx))
+        {
+            buffer[offset + idx] |= 0x80;
+        }
+    }
 }

@@ -3,7 +3,7 @@
 ############
 
 # C source files
-SOURCES = kbhit.c checksum.c serial.c vbus.c sqlite.c main.c
+SOURCES = kbhit.c serial.c vbus.c sqlite.c main.c
 
 # Optimization level, can be [0, 1, 2, 3, s].
 OPT = 3
@@ -13,11 +13,11 @@ TARGET = vbus-collector
 #===================================================================================
 
 CC = gcc
-CFLAGS = -D__SQLITE__ -O3 -c -Wall
+CFLAGS = -std=c99 -O$(OPT) -c -Wall -D__SQLITE__
 LDFLAGS = -lsqlite3
 OBJECTS = $(SOURCES:%.c=$(OBJDIR)/%.o)
 
-REMOVE    = rm
+REMOVE    = rm -f
 REMOVEDIR = rm -rf
 CREATEDIR = mkdir -p
 

@@ -5,13 +5,16 @@
 
 static sqlite3 *db = NULL;
 
-void sqlite_print_error(char* errMsg) {
-  printf("SQL error: %s\n", errMsg);
-  sqlite3_free(errMsg);
+void sqlite_print_error(char* error_msg)
+{
+  printf("SQL error: %s\n", error_msg);
+  sqlite3_free(error_msg);
 }
 
-bool sqlite_open(char *path) {
-  if (sqlite3_open(path, &db) != 0) {
+bool sqlite_open(char *path)
+{
+  if (sqlite3_open(path, &db) != 0)
+  {
     printf("Can't open database: %s\n", sqlite3_errmsg(db));
     sqlite_close();
     return false;
@@ -20,25 +23,32 @@ bool sqlite_open(char *path) {
   return true;
 }
 
-void sqlite_close() {
-  if (db != NULL) {
+
+void sqlite_close()
+{
+  if (db != NULL)
+  {
     sqlite3_close(db);
   }
 }
 
-bool sqlite_exec(char* sql) {
-  char *errMsg;
 
-  if (sqlite3_exec(db, sql, NULL, 0, &errMsg) != SQLITE_OK) {
-    sqlite_print_error(errMsg);
+bool sqlite_exec(char* sql)
+{
+  char *error_msg;
+
+  if (sqlite3_exec(db, sql, NULL, 0, &error_msg) != SQLITE_OK) {
+    sqlite_print_error(error_msg);
     return false;
   }
 
   return true;
 }
 
-bool sqlite_insert_data(Data_Packet* packet) {
-  char *errMsg;
+
+bool sqlite_insert_data(Data_Packet* packet)
+{
+  char *error_msg;
   char sql_buffer[256];
 
   sprintf(sql_buffer, "INSERT INTO data "
@@ -55,16 +65,19 @@ bool sqlite_insert_data(Data_Packet* packet) {
     packet->bsPlusPkt.OperatingHoursRelay1,
     packet->bsPlusPkt.OperatingHoursRelay2);
 
-  if (sqlite3_exec(db, sql_buffer, NULL, 0, &errMsg) != 0) {
-    sqlite_print_error(errMsg);
+  if (sqlite3_exec(db, sql_buffer, NULL, 0, &error_msg) != 0)
+  {
+    sqlite_print_error(error_msg);
     return false;
   }
 
   return true;
 }
 
-bool sqlite_create_table() {
-  char *errMsg;
+
+bool sqlite_create_table()
+{
+  char *error_msg;
   char sql_create_table[] = "CREATE TABLE IF NOT EXISTS data ("
     "\"id\"          INTEGER PRIMARY KEY AUTOINCREMENT,"
     "\"time\"        DEFAULT CURRENT_TIMESTAMP NOT NULL,"
@@ -78,8 +91,9 @@ bool sqlite_create_table() {
     "\"hours1\"      INTEGER NOT NULL,"
     "\"hours2\"      INTEGER NOT NULL);";
 
-  if (sqlite3_exec(db, sql_create_table, NULL, 0, &errMsg) != 0) {
-    sqlite_print_error(errMsg);
+  if (sqlite3_exec(db, sql_create_table, NULL, 0, &error_msg) != 0)
+  {
+    sqlite_print_error(error_msg);
     return false;
   }
 

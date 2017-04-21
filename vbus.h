@@ -4,26 +4,26 @@
 //
 //****************************************************************************
 
-
-#ifndef _VBUS_H
-#define _VBUS_H
+#pragma once
 
 #pragma pack(1)
-
-typedef struct _VBUS_HEADER {
+typedef struct _VBUS_HEADER
+{
 	unsigned char syncByte;
 	unsigned short dest;
 	unsigned short source;
 	unsigned char ver;
 } VBUS_HEADER, *PVBUS_HEADER;
 
-typedef struct _FRAME_STRUCT {
+typedef struct _FRAME_STRUCT
+{
 	unsigned char bytes[4];
 	unsigned char septett;
 	unsigned char crc;
 } FRAME_STRUCT, *PFRAME_STRUCT;
 
-typedef struct _VBUS_V1_CMD {
+typedef struct _VBUS_V1_CMD
+{
 	VBUS_HEADER h;
 	unsigned short cmd;
 	unsigned char frameCnt;
@@ -31,8 +31,6 @@ typedef struct _VBUS_V1_CMD {
 	FRAME_STRUCT frame[];
 } VBUS_V1_CMD, *PVBUS_V1_CMD;
 
-
-extern void VBus_ExtractSeptett(unsigned char *Buffer, int Offset, int Length);
-extern void VBus_InjectSeptett(unsigned char *Buffer, int Offset, int Length);
-
-#endif //_VBUS_H
+extern unsigned char vbus_calc_crc(const unsigned char *buffer, int offset, int length);
+extern void vbus_extract_septett(unsigned char *buffer, int offset, int length);
+extern void vbus_inject_septett(unsigned char *buffer, int offset, int length);
