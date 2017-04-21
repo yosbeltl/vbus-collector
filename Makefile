@@ -13,7 +13,7 @@ TARGET = vbus-collector
 #===================================================================================
 
 CC = gcc
-CFLAGS = -std=c99 -O$(OPT) -c -Wall -D__SQLITE__
+CFLAGS = -std=gnu99 -O$(OPT) -c -Wall -D__SQLITE__
 LDFLAGS = -lsqlite3
 OBJECTS = $(SOURCES:%.c=$(OBJDIR)/%.o)
 
