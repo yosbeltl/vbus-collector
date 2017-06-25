@@ -122,13 +122,13 @@ int main(int argc, char *argv[])
             break;
         }
 
-        int count = serial_read(&(serial_buffer[i]), 1);//sizeof(serial_buffer));        
+        int count = serial_read(&(serial_buffer[i]), 1);//sizeof(serial_buffer));
         if (count < 1)
         {
             continue;
         }
 
-        if (serial_buffer[i] == 0xaa)
+        if ((serial_buffer[i] & 0xFF) == 0xAA)
         {
             serial_buffer[0] = serial_buffer[i];
             i=0;
@@ -270,7 +270,7 @@ int main(int argc, char *argv[])
         }
 
     } while (loopforever == true || packet_displayed == 0);
-    
+
     serial_close_port();
 
     #if __SQLITE__
