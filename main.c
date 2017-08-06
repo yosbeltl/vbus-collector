@@ -3,7 +3,7 @@
 //
 // (c) Hewell Technology Ltd. 2014
 //
-// Tobias Tangemann 2015
+// Tobias Tangemann 2017
 //****************************************************************************
 
 
@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
     unsigned long delay = 0;
     bool withSql = false;
     bool print_result = true;
+    bool verbose = false;
 
     start:
     headerSync = 0; packet_displayed = 0;
@@ -61,6 +62,11 @@ int main(int argc, char *argv[])
             if (strcmp("-f", option)==0 || strcmp("--forever", option)==0)
             {
                 loopforever = true;
+            }
+
+            if (strcmp("-v", option) == 0 || strcmp("--verbose", option) == 0)
+            {
+                verbose = true;
             }
 
             if (strcmp("-d", option)==0 || strcmp("--delay", option)==0)
@@ -107,12 +113,21 @@ int main(int argc, char *argv[])
             }
         }
     }
-    //printf("Collecting data\n");
+    
+    if (verbose)
+    {
+        printf("Setting baudrate...\n");
+    }
 
     if (!serial_set_baud_rate(9600))
     {
         printf("Failed to set baud rate: %s\n", serial_get_error());
         return 3;
+    }
+
+    if (verbose)
+    {
+        printf("Collecting data...\n");
     }
 
     do
@@ -133,18 +148,31 @@ int main(int argc, char *argv[])
             serial_buffer[0] = serial_buffer[i];
             i=0;
             headerSync = 1;
-            //printf("\n\n");
+
+            if (verbose)
+            {
+                printf("\n\n");
+            }
         }
 
-        //printf("%02x ", serial_buffer[i]);
-        i++;
-        if (i % 16 == 0)
+        if (verbose)
         {
-            //printf("\n");
+            printf("%02x ", serial_buffer[i]);
+        }
+
+        i++;
+        if (i % 16 == 0 && verbose)
+        {
+            printf("\n");
         }
 
         if (headerSync)
         {
+            if (verbose)
+            {
+                printf("Header sync\n");
+            }
+
             if (i > sizeof(VBUS_HEADER))
             {
                 //we have nearly all the header
@@ -167,18 +195,31 @@ int main(int argc, char *argv[])
 
                 //We have a whole packet..
                 unsigned char crc = vbus_calc_crc((void*)serial_buffer, 1, 8);
-                //printf("\nPacket size: %d. Source: 0x%04x, Destination: 0x%04x, Command: 0x%04x, No of frames: %d, crc: 0x%02x(0x%02x)\n",
-                //  i, pPacket->h.source, pPacket->h.dest, pPacket->cmd, pPacket->frameCnt, pPacket->crc, crc);
+                
+                if (verbose)
+                {
+                    printf("\nPacket size: %d. Source: 0x%04x, Destination: 0x%04x, Command: 0x%04x, No of frames: %d, crc: 0x%02x(0x%02x)\n",
+                        i, pPacket->h.source, pPacket->h.dest, pPacket->cmd, pPacket->frameCnt, pPacket->crc, crc);
+                }
 
                 if (pPacket->crc != crc)
                 {
-                    //printf("CRC Error!\n");
+                    if (verbose)
+                    {
+                        printf("CRC Error!\n");
+                    }
+
                     continue;
                 }
 
+                //Not sure what this packet is
                 if (pPacket->cmd != 0x0100 || pPacket->h.dest != 0x10)
                 {
-                    //Not sure what this packet is
+                    if (verbose)
+                    {
+                        printf("Ignoring unkown packet!\n");
+                    }
+                    
                     continue;
                 }
 
@@ -188,14 +229,23 @@ int main(int argc, char *argv[])
                 for (unsigned char j = 0; j < pPacket->frameCnt; j++)
                 {
                     crc = vbus_calc_crc((void*)&pPacket->frame[j], 0, 5);
-                    //printf("Bytes: 0x%08lx, Septett: 0x%02x, crc: 0x%02x(0x%02x)\n",
-                    //  *(unsigned long *)pPacket->frame[j].bytes, pPacket->frame[j].septett, pPacket->frame[j].crc, crc);
+                    
+                    if (verbose)
+                    {
+                        printf("Bytes: 0x%02x%02x%02x%02x, Septett: 0x%02x, crc: 0x%02x(0x%02x)\n",
+                            pPacket->frame[j].bytes[0], pPacket->frame[j].bytes[1], pPacket->frame[j].bytes[2], pPacket->frame[j].bytes[3],
+                            pPacket->frame[j].septett, pPacket->frame[j].crc, crc);
+                    }
 
                     crcOK = (pPacket->frame[j].crc == crc);
                     if (!crcOK)
                     {
-                        //printf("CRC Error!\n");
-                        //crcOK = 0;
+                        if (verbose)
+                        {
+                            printf("Frame CRC Error!\n");
+                            crcOK = 0;
+                        }
+
                         break;
                     }
 
