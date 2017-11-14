@@ -23,6 +23,7 @@
 #include "kbhit.h"
 #include "serial.h"
 #include "vbus.h"
+#include "mqtt.h"
 
 #ifdef __SQLITE__
     #include "sqlite.h"
@@ -42,6 +43,7 @@ int main(int argc, char *argv[])
     bool withSql = false;
     bool print_result = true;
     bool verbose = false;
+    bool use_mqtt = false;
 
     start:
     headerSync = 0; packet_displayed = 0;
@@ -67,6 +69,11 @@ int main(int argc, char *argv[])
             if (strcmp("-v", option) == 0 || strcmp("--verbose", option) == 0)
             {
                 verbose = true;
+            }
+
+            if (strcmp("-m", option) == 0 || strcmp("--mqtt", option) == 0)
+            {
+                use_mqtt = true;
             }
 
             if (strcmp("-d", option)==0 || strcmp("--delay", option)==0)
@@ -113,7 +120,7 @@ int main(int argc, char *argv[])
             }
         }
     }
-    
+
     if (verbose)
     {
         printf("Setting baudrate...\n");
@@ -124,6 +131,17 @@ int main(int argc, char *argv[])
         printf("Failed to set baud rate: %s\n", serial_get_error());
         return 3;
     }
+
+    if (use_mqtt)
+    {
+        if (verbose)
+        {
+            printf("Connecting to mqtt server...\n");
+        }
+
+    	connect_mqtt("heizung/status");
+    }
+
 
     if (verbose)
     {
@@ -195,7 +213,7 @@ int main(int argc, char *argv[])
 
                 //We have a whole packet..
                 unsigned char crc = vbus_calc_crc((void*)serial_buffer, 1, 8);
-                
+
                 if (verbose)
                 {
                     printf("\nPacket size: %d. Source: 0x%04x, Destination: 0x%04x, Command: 0x%04x, No of frames: %d, crc: 0x%02x(0x%02x)\n",
@@ -219,7 +237,7 @@ int main(int argc, char *argv[])
                     {
                         printf("Ignoring unkown packet!\n");
                     }
-                    
+
                     continue;
                 }
 
@@ -229,7 +247,7 @@ int main(int argc, char *argv[])
                 for (unsigned char j = 0; j < pPacket->frameCnt; j++)
                 {
                     crc = vbus_calc_crc((void*)&pPacket->frame[j], 0, 5);
-                    
+
                     if (verbose)
                     {
                         printf("Bytes: 0x%02x%02x%02x%02x, Septett: 0x%02x, crc: 0x%02x(0x%02x)\n",
@@ -311,6 +329,17 @@ int main(int argc, char *argv[])
                         //packet.bsPlusPkt.Version * 0.01
                     );
                 }
+
+                if (use_mqtt)
+                {
+                    publish("heizung/ofen/temp", packet.bsPlusPkt.TempSensor1 * 0.1, "%.1f");
+                    publish("heizung/ofen/pump", packet.bsPlusPkt.PumpSpeed1);
+                    publish("heizung/ruecklauf/temp", packet.bsPlusPkt.TempSensor2 * 0.1, "%.1f");
+                    publish("heizung/ruecklauf/valve", packet.bsPlusPkt.PumpSpeed2 / 100);
+                    publish("heizung/speicher/oben/temp", packet.bsPlusPkt.TempSensor3 * 0.1, "%.1f");
+                    publish("heizung/speicher/unten/temp", packet.bsPlusPkt.TempSensor4 * 0.1, "%.1f");
+                }
+
                 packet_displayed++;
 
                 fflush(stdout);

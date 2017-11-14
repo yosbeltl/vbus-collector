@@ -3,18 +3,18 @@
 ############
 
 # C source files
-SOURCES = kbhit.c serial.c vbus.c sqlite.c main.c
+SOURCES = kbhit.c serial.c vbus.c sqlite.c mqtt.c main.c
 
-# Optimization level, can be [0, 1, 2, 3, s].
-OPT = 3
+# Optimization
+OPT = -O3 -flto
 
 TARGET = vbus-collector
 
 #===================================================================================
 
 CC = gcc
-CFLAGS = -std=gnu99 -O$(OPT) -c -Wall -D__SQLITE__
-LDFLAGS = -lsqlite3
+CFLAGS = -std=gnu99 $(OPT) -c -Wall -Ipaho.mqtt.c/src/ -D__SQLITE__
+LDFLAGS = -Lpaho.mqtt.c/build/src/ $(OPT) -fuse-linker-plugin -lsqlite3 -lpaho-mqtt3c-static -lpthread
 OBJECTS = $(SOURCES:%.c=$(OBJDIR)/%.o)
 
 REMOVE    = rm -f
