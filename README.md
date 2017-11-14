@@ -23,13 +23,13 @@ $ pacman -S git base-devel cmake libsqlite3-dev sqlite3
 Download the source code
 ```shell
 $ mkdir -p /opt/vbus
-$ cd /opt/vbus
+$ cd /srv/vbus
 $ git clone https://github.com/tripplet/vbus-collector.git collector
 ```
 
 Compile the data collector service
 ```shell
-$ cd /opt/vbus/collector
+$ cd /srv/vbus/collector
 $ make
 ```
 
@@ -38,8 +38,8 @@ $ make
 
 Now the udev rule and systemd service file need to be soft linked to the right locations
 ```shell
-$ ln -s /opt/vbus/collector/00-resol-vbus-usb.rules /etc/udev/rules.d/
-$ ln -s /opt/vbus/collector/monitor-vbus.service /etc/systemd/system/
+$ ln -s /srv/vbus/collector/00-resol-vbus-usb.rules /etc/udev/rules.d/
+$ ln -s /srv/vbus/collector/monitor-vbus.service /etc/systemd/system/
 ```
 
 Get the connected usb devices, identify the vbus adapter and make sure the
@@ -64,13 +64,13 @@ $ stat /dev/tty_resol
 
 Check if the collector is working (stop with Ctrl+C)
 ```shell
-$ /opt/vbus/collector/vbus-collector --delay 1 /dev/tty_resol
+$ /srv/vbus/collector/vbus-collector --delay 1 /dev/tty_resol
   System time:13:19, Sensor1 temp:20.7C, Sensor2 temp:21.0C, Sensor3 temp:22.9C, Sensor4 temp:24.0C, Pump speed1:0%, Pump speed2:0%, Hours1:2302, Hours2:2425
   System time:13:19, Sensor1 temp:20.7C, Sensor2 temp:21.0C, Sensor3 temp:22.9C, Sensor4 temp:24.0C, Pump speed1:0%, Pump speed2:0%, Hours1:2302, Hours2:2425
   System time:13:19, Sensor1 temp:20.7C, Sensor2 temp:21.0C, Sensor3 temp:22.9C, Sensor4 temp:24.0C, Pump speed1:0%, Pump speed2:0%, Hours1:2302, Hours2:2425
 ```
 
-Start the monitor-vbus service
+Start the monitor-vbus service, remove -mqtt form the service file if not mqtt server is a available at localhost:1883
 ```shell
 $ systemctl start monitor-vbus
 ```
@@ -97,5 +97,5 @@ $ sqlite3 /opt/vbus/collector/data.db "SELECT * FROM data ORDER BY id DESC LIMIT
 > Date/Time values in the sqlite database are stored in UTC.
 > To get the correct local time ensure that the timezone on the system is set properly and use:
 > ```shell
-> $ sqlite3 /opt/vbus/collector/data.db "SELECT datetime(time, 'localtime'),* FROM data;"
+> $ sqlite3 /srv/vbus/collector/data.db "SELECT datetime(time, 'localtime'),* FROM data;"
 > ```
