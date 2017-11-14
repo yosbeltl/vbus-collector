@@ -1,2 +1,5 @@
 language: c
+before_script:
+  - cd "paho.mqtt.c" && mkdir build && cd build
+  - cmake .. && make
 script: make
