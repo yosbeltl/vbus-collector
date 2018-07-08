@@ -3,6 +3,10 @@
 
 Data visualization is done by [vbus-server](https://github.com/tripplet/vbus-server)
 
+## Features
+* Save data to sqlite database
+* Send data to mqtt brocker (for integration in other home automation software, e.g. [Home Assistant](https://www.home-assistant.io/))
+
 ## HowTo
 The RaspberryPi or other linux machine should be running and connected to the internet, ssh sould be available.
 
