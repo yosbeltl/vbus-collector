@@ -74,7 +74,7 @@ $ /srv/vbus/collector/vbus-collector --delay 1 /dev/tty_resol
   System time:13:19, Sensor1 temp:20.7C, Sensor2 temp:21.0C, Sensor3 temp:22.9C, Sensor4 temp:24.0C, Pump speed1:0%, Pump speed2:0%, Hours1:2302, Hours2:2425
 ```
 
-Start the monitor-vbus service, remove -mqtt form the service file if not mqtt server is a available at localhost:1883
+Start the monitor-vbus service, remove the "--mqtt" parameter form the service file if no mqtt server is a available at localhost:1883
 ```shell
 $ systemctl start monitor-vbus
 ```
