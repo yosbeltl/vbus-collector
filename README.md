@@ -24,7 +24,7 @@ Download the source code
 ```shell
 $ mkdir -p /opt/vbus
 $ cd /srv/vbus
-$ git clone https://github.com/tripplet/vbus-collector.git collector
+$ git clone --recurse-submodules https://github.com/tripplet/vbus-collector.git collector
 ```
 
 Compile the data collector service
