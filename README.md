@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.org/tripplet/vbus-collector.svg?branch=master)](https://travis-ci.org/tripplet/vbus-collector)
 [![](https://img.shields.io/docker/build/ttobias/vbus-collector.svg)](https://hub.docker.com/r/ttobias/vbus-collector/)
 [![](https://images.microbadger.com/badges/image/ttobias/vbus-collector.svg)](https://microbadger.com/images/ttobias/vbus-collector "Get your own image badge on microbadger.com")
+[![GitHub license](https://img.shields.io/github/license/tripplet/vbus-collector.svg)](https://github.com/tripplet/vbus-collector/blob/master/LICENSE.txt)
+
 
 Data visualization is done by [vbus-server](https://github.com/tripplet/vbus-server)
 
