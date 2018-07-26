@@ -15,7 +15,7 @@ RUN cd /src && make -j
 #### Stage 2
 FROM ubuntu
 
-LABEL maintainer="Tobias Tanegmann"
+LABEL maintainer="Tobias Tangemann"
 
 RUN apt-get update && \
     apt-get -y install sqlite && \
