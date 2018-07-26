@@ -11,7 +11,10 @@ Data visualization is done by [vbus-server](https://github.com/tripplet/vbus-ser
 * Save data to sqlite database
 * Send data to mqtt brocker (for integration in other home automation software, e.g. [Home Assistant](https://www.home-assistant.io/))
 
-## HowTo
+## Docker container
+https://hub.docker.com/r/ttobias/vbus-collector/
+
+## HowTo Build
 The RaspberryPi or other linux machine should be running and connected to the internet, ssh sould be available.
 
 * Get root via `sudo -s`, `su` or other ways :smile:
