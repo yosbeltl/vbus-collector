@@ -33,13 +33,17 @@ $ pacman -S git base-devel cmake libsqlite3-dev sqlite3
 
 Download the source code
 ```shell
-$ mkdir -p /opt/vbus
+$ mkdir -p /srv/vbus
 $ cd /srv/vbus
 $ git clone --recurse-submodules https://github.com/tripplet/vbus-collector.git collector
 ```
 
-Compile the data collector service
+Compile the data collector service and the include mqtt library
 ```shell
+$ cd /srv/vbus/collector/paho.mqtt.c
+$ mkdir build && cd build
+$ cmake -DPAHO_BUILD_STATIC=TRUE ..
+$ make -j
 $ cd /srv/vbus/collector
 $ make
 ```
@@ -54,7 +58,8 @@ $ ln -s /srv/vbus/collector/monitor-vbus.service /etc/systemd/system/
 ```
 
 Get the connected usb devices, identify the vbus adapter and make sure the
-_00-resol-vbus-usb.rules_ file contains the correct vid and pid
+_00-resol-vbus-usb.rules_ file contains the correct vid and pid.
+For mine it was vid=1fef, and pid=2018, if these are different on your device,  change them in the provided `00-resol-vbus-usb.rules` file. 
 ```
 $ lsusb
   Bus 001 Device 011: ID 1fef:2018
