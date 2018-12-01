@@ -95,16 +95,16 @@ Check wether the service is running properly
 ```shell
 $ systemctl status monitor-vbus
   ● monitor-vbus.service - Monitor resol vbus temperatures
-     Loaded: loaded (/opt/vbus/collector/monitor-vbus.service; linked; vendor preset: disabled)
+     Loaded: loaded (/srv/vbus/collector/monitor-vbus.service; linked; vendor preset: disabled)
      Active: active (running) since Mi 2015-09-02 13:29:23 CEST; 10min ago
    Main PID: 12422 (vbus-collector)
      CGroup: /system.slice/monitor-vbus.service
-             └─12422 /opt/vbus/collector/vbus-collector --no-print --delay 60 --db /opt/vbus/collector/data.db /dev/tty_resol
+             └─12422 /srv/vbus/collector/vbus-collector --no-print --delay 60 --db /srv/vbus/collector/data.db /dev/tty_resol
 ```
 
 Check that data is beeing written to the sqlite database
 ```shell
-$ sqlite3 /opt/vbus/collector/data.db "SELECT * FROM data ORDER BY id DESC LIMIT 4;"
+$ sqlite3 /srv/vbus/collector/data.db "SELECT * FROM data ORDER BY id DESC LIMIT 4;"
   174837|2015-09-02 11:28:10|10:24|18.8|20.9|22.6|22.9|0|0|2302|2425
   174836|2015-09-02 11:29:07|10:22|18.9|20.9|22.7|22.9|0|0|2302|2425
   174835|2015-09-02 11:30:05|10:21|18.8|20.9|22.6|22.9|0|0|2302|2425
