@@ -25,9 +25,9 @@
 #include "vbus.h"
 #include "mqtt.h"
 
-#ifdef __SQLITE__
-    #include "sqlite.h"
-#endif
+//#ifdef __SQLITE__
+//    #include "sqlite.h"
+//#endif
 
 char serial_buffer[256];
 
@@ -297,12 +297,12 @@ int main(int argc, char *argv[])
                         ", Sensor4 temp:%.1fC"
                         ", Pump speed1:%d%%"
                         ", Pump speed2:%d%%"
-                        //", RelayMask:%d"
-                        //", ErrorMask:%d"
-                        //", Scheme:%d, %d, %d, %d, %d, %d, %d"
+                        ", RelayMask:%d"
+                        ", ErrorMask:%d"
+                        ", Scheme:%d, %d, %d, %d, %d, %d, %d"
                         ", Hours1:%d, Hours2:%d"
-                        //", %dWH, %dkWH, %dMWH"
-                        //", Version:%.2f"
+                        ", %dWH, %dkWH, %dMWH"
+                        ", Version:%.2f"
                         "\n",
                         packet.bsPlusPkt.SystemTime / 60,
                         packet.bsPlusPkt.SystemTime % 60,
@@ -312,21 +312,21 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.TempSensor4 * 0.1,
                         packet.bsPlusPkt.PumpSpeed1,
                         packet.bsPlusPkt.PumpSpeed2,
-                        //packet.bsPlusPkt.RelayMask,
-                        //packet.bsPlusPkt.ErrorMask,
-                        //packet.bsPlusPkt.Scheme,
-                        //packet.bsPlusPkt.OptionCollectorMax,
-                        //packet.bsPlusPkt.OptionCollectorMin,
-                        //packet.bsPlusPkt.OptionCollectorFrost,
-                        //packet.bsPlusPkt.OptionTubeCollector,
-                        //packet.bsPlusPkt.OptionRecooling,
-                        //packet.bsPlusPkt.OptionHQM,
+                        packet.bsPlusPkt.RelayMask,
+                        packet.bsPlusPkt.ErrorMask,
+                        packet.bsPlusPkt.Scheme,
+                        packet.bsPlusPkt.OptionCollectorMax,
+                        packet.bsPlusPkt.OptionCollectorMin,
+                        packet.bsPlusPkt.OptionCollectorFrost,
+                        packet.bsPlusPkt.OptionTubeCollector,
+                        packet.bsPlusPkt.OptionRecooling,
+                        packet.bsPlusPkt.OptionHQM,
                         packet.bsPlusPkt.OperatingHoursRelay1,
                         packet.bsPlusPkt.OperatingHoursRelay2
-                        //packet.bsPlusPkt.HeatQuantityWH,
-                        //packet.bsPlusPkt.HeatQuantityKWH,
-                        //packet.bsPlusPkt.HeatQuantityMWH
-                        //packet.bsPlusPkt.Version * 0.01
+                        packet.bsPlusPkt.HeatQuantityWH,
+                        packet.bsPlusPkt.HeatQuantityKWH,
+                        packet.bsPlusPkt.HeatQuantityMWH
+                        packet.bsPlusPkt.Version * 0.01
                     );
                 }
 
