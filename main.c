@@ -291,6 +291,8 @@ int main(int argc, char *argv[])
                 if (print_result)
                 {
                     printf("System time:%02d:%02d"
+                        ", Data System 1:%02d"
+                        ", Data System 2:%02d"   
                         ", Sensor1 temp:%.1fC"
                         ", Sensor2 temp:%.1fC"
                         ", Sensor3 temp:%.1fC"
@@ -306,6 +308,8 @@ int main(int argc, char *argv[])
                         "\n",
                         packet.bsPlusPkt.SystemTime / 60,
                         packet.bsPlusPkt.SystemTime % 60,
+                        packet.bsPlusPkt.DataSystem1,
+                        packet.bsPlusPkt.DataSystem2,   
                         packet.bsPlusPkt.TempSensor1 * 0.1,
                         packet.bsPlusPkt.TempSensor2 * 0.1,
                         packet.bsPlusPkt.TempSensor3 * 0.1,
