@@ -241,7 +241,7 @@ int main(int argc, char *argv[])
                     continue;
                 }
 
-                //Packet is from DeltaSol BS Plus
+                //Packet is from DeltaSol SLL
                 //This is the packet we've been waiting for! Lets decode it....
                 int crcOK = 0;
                 for (unsigned char j = 0; j < pPacket->frameCnt; j++)
