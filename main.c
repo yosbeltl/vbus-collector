@@ -25,9 +25,9 @@
 #include "vbus.h"
 #include "mqtt.h"
 
-//#ifdef __SQLITE__
-//    #include "sqlite.h"
-//#endif
+#ifdef __SQLITE__
+    #include "sqlite.h"
+#endif
 
 char serial_buffer[256];
 
