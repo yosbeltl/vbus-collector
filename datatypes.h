@@ -4,8 +4,8 @@
 #pragma pack(1)
 typedef union {
   struct {
-    short DataSystem1;
-    short DataSystem2
+    short SystemData1;
+    short SystemData2;
     short TempSensor1;
     short TempSensor2;
     short TempSensor3;
