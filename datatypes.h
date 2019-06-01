@@ -4,15 +4,13 @@
 #pragma pack(1)
 typedef union {
   struct {
-    short SystemData1;
-    short SystemData2;
+    unsigned short SystemData;
     short TempSensor1;
     short TempSensor2;
     short TempSensor3;
     short TempSensor4;
-    short Day;
-    short FlowV40_1;
-    short FlowV40_2;
+    unsigned char Day;
+    unsigned char FlowV40;
     unsigned char SpeedRelay1;
     unsigned char SpeedRelay2;
     unsigned char SpeedRelay4;
