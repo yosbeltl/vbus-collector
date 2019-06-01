@@ -316,7 +316,7 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.TempSensor3 * 0.1,
                         packet.bsPlusPkt.TempSensor4 * 0.1,
                         packet.bsPlusPkt.Day,
-                        packet.bsPlusPkt.Flow V40,
+                        packet.bsPlusPkt.FlowV40,
                         packet.bsPlusPkt.PumpSpeed1,
                         packet.bsPlusPkt.PumpSpeed2,
                         packet.bsPlusPkt.RelayMask,
