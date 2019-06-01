@@ -332,7 +332,7 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.HeatQuantityWH,
                         packet.bsPlusPkt.HeatQuantityKWH,
                         packet.bsPlusPkt.HeatQuantityMWH,
-                        packet.bsPlusPkt.Version * 0.01
+                        packet.bsPlusPkt.Version * 0.01,
                         packet.bsPlusPkt.PumpSpeed1,
                         packet.bsPlusPkt.PumpSpeed2,
                         packet.bsPlusPkt.RelayMask,
