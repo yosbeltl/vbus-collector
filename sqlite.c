@@ -52,8 +52,8 @@ bool sqlite_insert_data(Data_Packet* packet)
   char sql_buffer[256];
 
   //sprintf(sql_buffer, "INSERT INTO data "
-    "(system_time, temp1, temp2, temp3, temp4, pump1, pump2, hours1, hours2) VALUES "
-    "(\"%02d:%02d\", %.1f, %.1f, %.1f, %.1f, %d, %d, %d, %d);",
+    //"(system_time, temp1, temp2, temp3, temp4, pump1, pump2, hours1, hours2) VALUES "
+    //"(\"%02d:%02d\", %.1f, %.1f, %.1f, %.1f, %d, %d, %d, %d);",
     //packet->bsPlusPkt.SystemTime / 60,
     //packet->bsPlusPkt.SystemTime % 60,
     //packet->bsPlusPkt.TempSensor1 * 0.1,
