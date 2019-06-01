@@ -326,7 +326,7 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.OptionRecooling,
                         packet.bsPlusPkt.OptionHQM,
                         packet.bsPlusPkt.OperatingHoursRelay1,
-                        packet.bsPlusPkt.OperatingHoursRelay2
+                        packet.bsPlusPkt.OperatingHoursRelay2,
                         packet.bsPlusPkt.HeatQuantityWH,
                         packet.bsPlusPkt.HeatQuantityKWH,
                         packet.bsPlusPkt.HeatQuantityMWH
