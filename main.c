@@ -310,7 +310,7 @@ int main(int argc, char *argv[])
                         "\n",
                         //packet.bsPlusPkt.SystemTime / 60,
                         //packet.bsPlusPkt.SystemTime % 60,
-                        packet.bsPlusPkt.SystemData1,  
+                        packet.bsPlusPkt.SystemData,  
                         packet.bsPlusPkt.TempSensor1 * 0.1,
                         packet.bsPlusPkt.TempSensor2 * 0.1,
                         packet.bsPlusPkt.TempSensor3 * 0.1,
