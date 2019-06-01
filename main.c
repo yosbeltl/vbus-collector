@@ -304,14 +304,16 @@ int main(int argc, char *argv[])
                         ", Speed Relay 1:%d%%"
                         ", Speed Relay 2:%d%%"
                         ", Speed Relay 4:%d%%"
+                        ", HeatQuantityWH:%d"
+                        ", HeatQuantityKWH:%d"
+                        ", HeatQuantityMWH:%d"
+                        ", Version:%.2f"
                         ", Pump speed1:%d%%"
                         ", Pump speed2:%d%%"
                         ", RelayMask:%d"
                         ", ErrorMask:%d"
                         ", Scheme:%d, %d, %d, %d, %d, %d, %d"
-                        ", Hours1:%d, Hours2:%d"
-                        ", %dWH, %dkWH, %dMWH"
-                        ", Version:%.2f"
+                        ", Hours1:%d, Hours2:%d"       
                         "\n",
                         //packet.bsPlusPkt.SystemTime / 60,
                         //packet.bsPlusPkt.SystemTime % 60,
@@ -327,6 +329,10 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.SpeedRelay1,
                         packet.bsPlusPkt.SpeedRelay2,
                         packet.bsPlusPkt.SpeedRelay4,
+                        packet.bsPlusPkt.HeatQuantityWH,
+                        packet.bsPlusPkt.HeatQuantityKWH,
+                        packet.bsPlusPkt.HeatQuantityMWH,
+                        packet.bsPlusPkt.Version * 0.01
                         packet.bsPlusPkt.PumpSpeed1,
                         packet.bsPlusPkt.PumpSpeed2,
                         packet.bsPlusPkt.RelayMask,
@@ -339,11 +345,7 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.OptionRecooling,
                         packet.bsPlusPkt.OptionHQM,
                         packet.bsPlusPkt.OperatingHoursRelay1,
-                        packet.bsPlusPkt.OperatingHoursRelay2,
-                        packet.bsPlusPkt.HeatQuantityWH,
-                        packet.bsPlusPkt.HeatQuantityKWH,
-                        packet.bsPlusPkt.HeatQuantityMWH,
-                        packet.bsPlusPkt.Version * 0.01
+                        packet.bsPlusPkt.OperatingHoursRelay2
                     );
                 }
 
