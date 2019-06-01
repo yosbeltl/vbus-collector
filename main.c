@@ -303,8 +303,28 @@ int main(int argc, char *argv[])
                         ", Speed Relay 4:%d%%"
                         ", HeatQuantity:%i"
                         ", Version:%.2f"
-                        ", Hours1:%d, Hours2:%d, Hours4:%d"
+                        ", Hours1:%d"
+                        ", Hours2:%d"
+                        ", Hours4:%d"
                         ", HolidayFunction:%d" 
+                        ", BlockingProtection1:%d" 
+                        ", BlockingProtection2:%d"
+                        ", BlockingProtection3:%d"
+                        ", Initializing:%i" 
+                        ", Filling:%i"
+                        ", Stabilizing:%i"
+                        ", PumpDelay:%d"
+                        ", HeatDump:%d"
+                        ", Trailing:%d"
+                        ", ThermalDisinfection:%d"
+                        ", MemoryCooling:%d"
+                        ", CoolingSystem:%d"
+                        ", Spread:%d"
+                        ", AntiFreeze:%d"
+                        ", CollectorCooling:%d"
+                        ", MaximumStoreTemperature:%d"
+                        ", Reboots:%d"
+                        ", SensorError:%d"
                         ", ErrorMask:%d"
                         "\n",
                         packet.bsPlusPkt.SystemData ,
@@ -323,6 +343,24 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.OperatingHoursRelay2,
                         packet.bsPlusPkt.OperatingHoursRelay4,
                         packet.bsPlusPkt.HolidayFunction, 
+                        packet.bsPlusPkt.BlockingProtection1, 
+                        packet.bsPlusPkt.BlockingProtection2,
+                        packet.bsPlusPkt.BlockingProtection3,
+                        packet.bsPlusPkt.Initializing,
+                        packet.bsPlusPkt.Filling,
+                        packet.bsPlusPkt.Stabilizing,
+                        packet.bsPlusPkt.PumpDelay,
+                        packet.bsPlusPkt.HeatDump,
+                        packet.bsPlusPkt.Trailing,
+                        packet.bsPlusPkt.ThermalDisinfection,
+                        packet.bsPlusPkt.MemoryCooling,
+                        packet.bsPlusPkt.CoolingSystem,
+                        packet.bsPlusPkt.Spread,
+                        packet.bsPlusPkt.AntiFreeze,
+                        packet.bsPlusPkt.CollectorCooling,
+                        packet.bsPlusPkt.MaximumStoreTemperature,
+                        packet.bsPlusPkt.Reboots,
+                        packet.bsPlusPkt.SensorError,
                         packet.bsPlusPkt.ErrorMask
                     );
                 }
