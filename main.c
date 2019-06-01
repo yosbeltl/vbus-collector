@@ -302,9 +302,7 @@ int main(int argc, char *argv[])
                         ", Speed Relay 1:%d%%"
                         ", Speed Relay 2:%d%%"
                         ", Speed Relay 4:%d%%"
-                        ", HeatQuantityWH:%d"
-                        ", HeatQuantityKWH:%d"
-                        ", HeatQuantityMWH:%d"
+                        ", HeatQuantity:%i"
                         ", Version:%.2f"
                         ", Hours1:%d, Hours2:%d, Hours4:%d"
                         ", Pump speed1:%d%%"
@@ -325,9 +323,7 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.SpeedRelay1,
                         packet.bsPlusPkt.SpeedRelay2,
                         packet.bsPlusPkt.SpeedRelay4,
-                        packet.bsPlusPkt.HeatQuantityWH,
-                        packet.bsPlusPkt.HeatQuantityKWH,
-                        packet.bsPlusPkt.HeatQuantityMWH,
+                        packet.bsPlusPkt.HeatQuantity,
                         packet.bsPlusPkt.Version * 0.01,
                         packet.bsPlusPkt.OperatingHoursRelay1,
                         packet.bsPlusPkt.OperatingHoursRelay2,
