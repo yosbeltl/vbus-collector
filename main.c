@@ -291,28 +291,31 @@ int main(int argc, char *argv[])
                 if (print_result)
                 {
                     printf(
-                        //"System time:%02d:%02d"
                         "  System Data:%02i"
+                        "\n",
                         ", Sensor1 temp:%.1fC"
                         ", Sensor2 temp:%.1fC"
                         ", Sensor3 temp:%.1fC"
                         ", Sensor4 temp:%.1fC"
+                        "\n",
                         ", Day:%d"
+                        "\n",
                         ", Flow V40:%i"
+                        "\n",
                         ", Speed Relay 1:%d%%"
                         ", Speed Relay 2:%d%%"
                         ", Speed Relay 4:%d%%"
-                        ", HeatQuantity:%i"
-                        ", Version:%.2f"
-                        ", Hours1:%d, Hours2:%d, Hours4:%d"
-                        ", Pump speed1:%d%%"
-                        ", Pump speed2:%d%%"
-                        ", RelayMask:%d"
-                        ", ErrorMask:%d"
-                        ", Scheme:%d, %d, %d, %d, %d, %d, %d"                           
                         "\n",
-                        //packet.bsPlusPkt.SystemTime / 60,
-                        //packet.bsPlusPkt.SystemTime % 60,
+                        ", HeatQuantity:%i"
+                        "\n",
+                        ", Version:%.2f"
+                        "\n",
+                        ", Hours1:%d, Hours2:%d, Hours4:%d"
+                        "\n",
+                         ", HolidayFunction:%d"                          
+                        "\n",
+                        
+                        "\n",
                         packet.bsPlusPkt.SystemData ,
                         packet.bsPlusPkt.TempSensor1 * 0.1,
                         packet.bsPlusPkt.TempSensor2 * 0.1,
@@ -328,28 +331,19 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.OperatingHoursRelay1,
                         packet.bsPlusPkt.OperatingHoursRelay2,
                         packet.bsPlusPkt.OperatingHoursRelay4,
-                        packet.bsPlusPkt.PumpSpeed1,
-                        packet.bsPlusPkt.PumpSpeed2,
-                        packet.bsPlusPkt.RelayMask,
-                        packet.bsPlusPkt.ErrorMask,
-                        packet.bsPlusPkt.Scheme,
-                        packet.bsPlusPkt.OptionCollectorMax,
-                        packet.bsPlusPkt.OptionCollectorMin,
-                        packet.bsPlusPkt.OptionCollectorFrost,
-                        packet.bsPlusPkt.OptionTubeCollector,
-                        packet.bsPlusPkt.OptionRecooling,
-                        packet.bsPlusPkt.OptionHQM                        
+                        packet.bsPlusPkt.HolidayFunction, 
+                        packet.bsPlusPkt.ErrorMask
                     );
                 }
 
                 if (use_mqtt)
                 {
-                    publish("heizung/ofen/temp", packet.bsPlusPkt.TempSensor1 * 0.1, "%.1f");
-                    publish("heizung/ofen/pump", packet.bsPlusPkt.PumpSpeed1);
-                    publish("heizung/ruecklauf/temp", packet.bsPlusPkt.TempSensor4 * 0.1, "%.1f");
-                    publish("heizung/ruecklauf/valve", packet.bsPlusPkt.PumpSpeed2 / 100);
-                    publish("heizung/speicher/oben/temp", packet.bsPlusPkt.TempSensor3 * 0.1, "%.1f");
-                    publish("heizung/speicher/unten/temp", packet.bsPlusPkt.TempSensor2 * 0.1, "%.1f");
+                    //publish("heizung/ofen/temp", packet.bsPlusPkt.TempSensor1 * 0.1, "%.1f");
+                    //publish("heizung/ofen/pump", packet.bsPlusPkt.PumpSpeed1);
+                    //publish("heizung/ruecklauf/temp", packet.bsPlusPkt.TempSensor4 * 0.1, "%.1f");
+                    //publish("heizung/ruecklauf/valve", packet.bsPlusPkt.PumpSpeed2 / 100);
+                    //publish("heizung/speicher/oben/temp", packet.bsPlusPkt.TempSensor3 * 0.1, "%.1f");
+                    //publish("heizung/speicher/unten/temp", packet.bsPlusPkt.TempSensor2 * 0.1, "%.1f");
                 }
 
                 packet_displayed++;
