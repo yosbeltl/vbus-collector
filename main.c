@@ -319,6 +319,8 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.SystemData ,
                         packet.bsPlusPkt.SystemData ,
                         packet.bsPlusPkt.SystemData ,
+                        packet.bsPlusPkt.SystemData ,
+                        packet.bsPlusPkt.SystemData ,
                         packet.bsPlusPkt.TempSensor1 * 0.1,
                         packet.bsPlusPkt.TempSensor2 * 0.1,
                         packet.bsPlusPkt.TempSensor3 * 0.1,
