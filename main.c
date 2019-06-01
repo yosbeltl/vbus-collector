@@ -329,7 +329,7 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.OperatingHoursRelay2,
                         packet.bsPlusPkt.HeatQuantityWH,
                         packet.bsPlusPkt.HeatQuantityKWH,
-                        packet.bsPlusPkt.HeatQuantityMWH
+                        packet.bsPlusPkt.HeatQuantityMWH,
                         packet.bsPlusPkt.Version * 0.01
                     );
                 }
