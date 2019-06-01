@@ -292,7 +292,7 @@ int main(int argc, char *argv[])
                 {
                     printf(
                         //"System time:%02d:%02d"
-                        "  System Data:%02d:%02d:%02d:%02d"
+                        "  System Data:%02d:%02d:%02d:%02d:%02d:%02d"
                         ", Sensor1 temp:%.1fC"
                         ", Sensor2 temp:%.1fC"
                         ", Sensor3 temp:%.1fC"
