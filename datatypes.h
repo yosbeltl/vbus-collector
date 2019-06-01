@@ -23,7 +23,7 @@ typedef union {
     unsigned char BlockingProtection1;
     unsigned char BlockingProtection2;
     unsigned char BlockingProtection3;    
-    unsigned short Initializing;
+    unsigned long Initializing;
     unsigned long Filling;
     unsigned long Stabilizing;
     unsigned char PumpDelay;
