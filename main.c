@@ -298,7 +298,7 @@ int main(int argc, char *argv[])
                         ", Sensor3 temp:%.1fC"
                         ", Sensor4 temp:%.1fC"
                         ", Day:%d"
-                        ", Flow V40:%d"
+                        ", Flow V40:%d:%d"
                         ", Speed Relay 1:%d%%"
                         ", Speed Relay 2:%d%%"
                         ", Speed Relay 4:%d%%"
@@ -316,9 +316,9 @@ int main(int argc, char *argv[])
                         //packet.bsPlusPkt.SystemTime / 60,
                         //packet.bsPlusPkt.SystemTime % 60,
                         packet.bsPlusPkt.SystemData ,
-                        packet.bsPlusPkt.SystemData / 256,
-                        packet.bsPlusPkt.SystemData / 65536,
-                        packet.bsPlusPkt.SystemData / 16777216,
+                        packet.bsPlusPkt.SystemData ,
+                        packet.bsPlusPkt.SystemData ,
+                        packet.bsPlusPkt.SystemData ,
                         packet.bsPlusPkt.TempSensor1 * 0.1,
                         packet.bsPlusPkt.TempSensor2 * 0.1,
                         packet.bsPlusPkt.TempSensor3 * 0.1,
