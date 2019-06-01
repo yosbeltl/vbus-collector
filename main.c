@@ -292,13 +292,13 @@ int main(int argc, char *argv[])
                 {
                     printf(
                         //"System time:%02d:%02d"
-                        "  System Data 1:%02i"
-                        ", System Data 2:%02i"   
+                        "  System Data:%d"  
                         ", Sensor1 temp:%.1fC"
                         ", Sensor2 temp:%.1fC"
                         ", Sensor3 temp:%.1fC"
                         ", Sensor4 temp:%.1fC"
                         ", Day:%d"
+                        ", Flow V40:%d"
                         ", Pump speed1:%d%%"
                         ", Pump speed2:%d%%"
                         ", RelayMask:%d"
@@ -310,13 +310,13 @@ int main(int argc, char *argv[])
                         "\n",
                         //packet.bsPlusPkt.SystemTime / 60,
                         //packet.bsPlusPkt.SystemTime % 60,
-                        packet.bsPlusPkt.SystemData1,
-                        packet.bsPlusPkt.SystemData2,   
+                        packet.bsPlusPkt.SystemData1,  
                         packet.bsPlusPkt.TempSensor1 * 0.1,
                         packet.bsPlusPkt.TempSensor2 * 0.1,
                         packet.bsPlusPkt.TempSensor3 * 0.1,
                         packet.bsPlusPkt.TempSensor4 * 0.1,
                         packet.bsPlusPkt.Day,
+                        packet.bsPlusPkt.Flow V40,
                         packet.bsPlusPkt.PumpSpeed1,
                         packet.bsPlusPkt.PumpSpeed2,
                         packet.bsPlusPkt.RelayMask,
