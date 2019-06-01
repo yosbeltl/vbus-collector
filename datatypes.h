@@ -15,7 +15,7 @@ typedef union {
     unsigned char PumpSpeed2;
     unsigned char RelayMask;
     unsigned char ErrorMask;
-    //unsigned short SystemTime;
+    unsigned short SystemTime;
     unsigned char Scheme;
     unsigned char OptionCollectorMax:1;
     unsigned char OptionCollectorMin:1;
