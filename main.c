@@ -292,13 +292,13 @@ int main(int argc, char *argv[])
                 {
                     printf(
                         //"System time:%02d:%02d"
-                        "  System Data:%d"  
+                        "  System Data:%f"  
                         ", Sensor1 temp:%.1fC"
                         ", Sensor2 temp:%.1fC"
                         ", Sensor3 temp:%.1fC"
                         ", Sensor4 temp:%.1fC"
-                        ", Day:%d"
-                        ", Flow V40:%d"
+                        ", Day:%f"
+                        ", Flow V40:%f"
                         ", Pump speed1:%d%%"
                         ", Pump speed2:%d%%"
                         ", RelayMask:%d"
