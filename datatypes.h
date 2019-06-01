@@ -11,6 +11,9 @@ typedef union {
     short TempSensor4;
     short Day;
     short FlowV40;
+    unsigned char SpeedRelay1;
+    unsigned char SpeedRelay2;
+    unsigned char SpeedRelay4;
     unsigned char PumpSpeed1;
     unsigned char PumpSpeed2;
     unsigned char RelayMask;
