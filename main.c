@@ -308,12 +308,12 @@ int main(int argc, char *argv[])
                         ", HeatQuantityKWH:%d"
                         ", HeatQuantityMWH:%d"
                         ", Version:%.2f"
+                        ", Hours1:%d, Hours2:%d, Hours4:%d"
                         ", Pump speed1:%d%%"
                         ", Pump speed2:%d%%"
                         ", RelayMask:%d"
                         ", ErrorMask:%d"
-                        ", Scheme:%d, %d, %d, %d, %d, %d, %d"
-                        ", Hours1:%d, Hours2:%d"       
+                        ", Scheme:%d, %d, %d, %d, %d, %d, %d"                           
                         "\n",
                         //packet.bsPlusPkt.SystemTime / 60,
                         //packet.bsPlusPkt.SystemTime % 60,
@@ -333,6 +333,9 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.HeatQuantityKWH,
                         packet.bsPlusPkt.HeatQuantityMWH,
                         packet.bsPlusPkt.Version * 0.01,
+                        packet.bsPlusPkt.OperatingHoursRelay1,
+                        packet.bsPlusPkt.OperatingHoursRelay2,
+                        packet.bsPlusPkt.OperatingHoursRelay4,
                         packet.bsPlusPkt.PumpSpeed1,
                         packet.bsPlusPkt.PumpSpeed2,
                         packet.bsPlusPkt.RelayMask,
@@ -343,9 +346,7 @@ int main(int argc, char *argv[])
                         packet.bsPlusPkt.OptionCollectorFrost,
                         packet.bsPlusPkt.OptionTubeCollector,
                         packet.bsPlusPkt.OptionRecooling,
-                        packet.bsPlusPkt.OptionHQM,
-                        packet.bsPlusPkt.OperatingHoursRelay1,
-                        packet.bsPlusPkt.OperatingHoursRelay2
+                        packet.bsPlusPkt.OptionHQM                        
                     );
                 }
 
