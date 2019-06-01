@@ -20,6 +20,9 @@ typedef union {
     unsigned short HeatQuantityKWH;
     unsigned short HeatQuantityMWH;
     unsigned short Version;
+    unsigned short OperatingHoursRelay1;
+    unsigned short OperatingHoursRelay2;
+    unsigned short OperatingHoursRelay4;
     unsigned char PumpSpeed1;
     unsigned char PumpSpeed2;
     unsigned char RelayMask;
@@ -33,8 +36,6 @@ typedef union {
     unsigned char OptionRecooling:1;
     unsigned char OptionHQM:1;
     unsigned char rfu:2;
-    unsigned short OperatingHoursRelay1;
-    unsigned short OperatingHoursRelay2;
   } bsPlusPkt;
   unsigned char asBytes[28];
 } Data_Packet;
