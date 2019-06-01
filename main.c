@@ -292,7 +292,7 @@ int main(int argc, char *argv[])
                 {
                     printf(
                         //"System time:%02d:%02d"
-                        "  System Data:%02d:%02d"
+                        "  System Data:%02d:%02d:%02d:%02d"
                         ", Sensor1 temp:%.1fC"
                         ", Sensor2 temp:%.1fC"
                         ", Sensor3 temp:%.1fC"
@@ -315,8 +315,10 @@ int main(int argc, char *argv[])
                         "\n",
                         //packet.bsPlusPkt.SystemTime / 60,
                         //packet.bsPlusPkt.SystemTime % 60,
-                        packet.bsPlusPkt.SystemData / 60,
-                        packet.bsPlusPkt.SystemData % 60,
+                        packet.bsPlusPkt.SystemData ,
+                        packet.bsPlusPkt.SystemData / 256,
+                        packet.bsPlusPkt.SystemData / 65536,
+                        packet.bsPlusPkt.SystemData / 16777216,
                         packet.bsPlusPkt.TempSensor1 * 0.1,
                         packet.bsPlusPkt.TempSensor2 * 0.1,
                         packet.bsPlusPkt.TempSensor3 * 0.1,
