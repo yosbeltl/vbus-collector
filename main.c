@@ -292,29 +292,20 @@ int main(int argc, char *argv[])
                 {
                     printf(
                         "  System Data:%02i"
-                        "\n",
                         ", Sensor1 temp:%.1fC"
                         ", Sensor2 temp:%.1fC"
                         ", Sensor3 temp:%.1fC"
                         ", Sensor4 temp:%.1fC"
-                        "\n",
                         ", Day:%d"
-                        "\n",
                         ", Flow V40:%i"
-                        "\n",
                         ", Speed Relay 1:%d%%"
                         ", Speed Relay 2:%d%%"
                         ", Speed Relay 4:%d%%"
-                        "\n",
                         ", HeatQuantity:%i"
-                        "\n",
                         ", Version:%.2f"
-                        "\n",
                         ", Hours1:%d, Hours2:%d, Hours4:%d"
-                        "\n",
-                         ", HolidayFunction:%d"                          
-                        "\n",
-                        
+                        ", HolidayFunction:%d" 
+                        ", ErrorMask:%d"
                         "\n",
                         packet.bsPlusPkt.SystemData ,
                         packet.bsPlusPkt.TempSensor1 * 0.1,
