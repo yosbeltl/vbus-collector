@@ -4,7 +4,7 @@
 #pragma pack(1)
 typedef union {
   struct {
-    unsigned long SystemData;
+    unsigned char SystemData;
     short TempSensor1;
     short TempSensor2;
     short TempSensor3;
