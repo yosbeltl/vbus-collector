@@ -14,13 +14,11 @@ typedef union {
     unsigned char SpeedRelay1;
     unsigned char SpeedRelay2;
     unsigned char SpeedRelay4;
-    unsigned short HeatQuantityWH;
-    unsigned short HeatQuantityKWH;
-    unsigned short HeatQuantityMWH;
+    unsigned long HeatQuantity;
     unsigned short Version;
-    unsigned short OperatingHoursRelay1;
-    unsigned short OperatingHoursRelay2;
-    unsigned short OperatingHoursRelay4;
+    unsigned long OperatingHoursRelay1;
+    unsigned long OperatingHoursRelay2;
+    unsigned long OperatingHoursRelay4;
     unsigned char PumpSpeed1;
     unsigned char PumpSpeed2;
     unsigned char RelayMask;
