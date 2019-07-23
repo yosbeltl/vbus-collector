@@ -30,7 +30,7 @@ int connect_mqtt(const char* last_will_topic)
     if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
     {
         printf("Failed to connect, return code %d\n", rc);
-        publish_str(last_will_topic, "0");
+        //publish_str(last_will_topic, "0");
         return false;
     }
 
