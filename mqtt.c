@@ -5,8 +5,8 @@
 #include <string.h>
 #include "MQTTClient.h"
 
-#define ADDRESS     "tcp://localhost:1883"
-#define CLIENTID    "vbus"
+#define ADDRESS     "tcp://192.168.1.34:1883"
+#define CLIENTID    "controlador-solar"
 #define QOS         1
 #define TIMEOUT     3000L
 
