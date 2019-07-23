@@ -367,12 +367,14 @@ int main(int argc, char *argv[])
 
                 if (use_mqtt)
                 {
-                    //publish("heizung/ofen/temp", packet.bsPlusPkt.TempSensor1 * 0.1, "%.1f");
+                    publish("tele/controlador-solar/tempacumabajo", packet.bsPlusPkt.TempSensor1 * 0.1, "%.1f");
                     //publish("heizung/ofen/pump", packet.bsPlusPkt.PumpSpeed1);
-                    //publish("heizung/ruecklauf/temp", packet.bsPlusPkt.TempSensor4 * 0.1, "%.1f");
+                    publish("tele/controlador-solar/tempcaptador", packet.bsPlusPkt.TempSensor2 * 0.1, "%.1f");
                     //publish("heizung/ruecklauf/valve", packet.bsPlusPkt.PumpSpeed2 / 100);
                     //publish("heizung/speicher/oben/temp", packet.bsPlusPkt.TempSensor3 * 0.1, "%.1f");
                     //publish("heizung/speicher/unten/temp", packet.bsPlusPkt.TempSensor2 * 0.1, "%.1f");
+                    publish("tele/controlador-solar/day", packet.bsPlusPkt.Day);
+                    
                 }
 
                 packet_displayed++;
