@@ -373,7 +373,7 @@ int main(int argc, char *argv[])
                     //publish("heizung/ruecklauf/valve", packet.bsPlusPkt.PumpSpeed2 / 100);
                     //publish("heizung/speicher/oben/temp", packet.bsPlusPkt.TempSensor3 * 0.1, "%.1f");
                     //publish("heizung/speicher/unten/temp", packet.bsPlusPkt.TempSensor2 * 0.1, "%.1f");
-                    publish("tele/controlador-solar/day", packet.bsPlusPkt.Day);
+                    //publish("tele/controlador-solar/day", packet.bsPlusPkt.Day);
                     
                 }
 
