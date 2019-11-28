@@ -5,6 +5,6 @@ After=dev-tty_resol.device
 
 [Service]
 Nice=1
-ExecStart=/srv/vbus/collector/vbus-collector --no-print --delay 60 --mqtt
+ExecStart=/srv/vbus/collector/vbus-collector --no-print --delay 10 --mqtt
 User=root
 Group=root
