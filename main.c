@@ -369,12 +369,11 @@ int main(int argc, char *argv[])
                 {
                     publish("tele/controlador-solar/tempcaptador", packet.bsPlusPkt.TempSensor1 * 0.1, "%.1f");
                     publish("tele/controlador-solar/tempacumabajo", packet.bsPlusPkt.TempSensor2 * 0.1, "%.1f");
-                    publish("tele/controlador-solar/SpeedRelay1", packet.bsPlusPkt.SpeedRelay1,"%f");
-                    publish("tele/controlador-solar/OperatingHoursRelay1", packet.bsPlusPkt.OperatingHoursRelay1, "%f");
-                    publish("tele/controlador-solar/day", packet.bsPlusPkt.Day, "%f");
+                    publish("tele/controlador-solar/SpeedRelay1", packet.bsPlusPkt.SpeedRelay1);
+                    publish("tele/controlador-solar/OperatingHoursRelay1", packet.bsPlusPkt.OperatingHoursRelay1);
+                    publish("tele/controlador-solar/day", packet.bsPlusPkt.Day);
                     publish("tele/controlador-solar/Version", packet.bsPlusPkt.Version * 0.01, "%.2f");
 
-                    
                 }
 
                 packet_displayed++;
